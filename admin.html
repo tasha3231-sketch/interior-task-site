@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Админ-панель — Интерьер под задачу</title>
+
+<style>
+:root{
+  --bg:#f4f1ea;
+  --paper:#fbf8f2;
+  --paper2:#f7f1e8;
+  --ink:#171512;
+  --muted:#6b6258;
+  --muted2:#9b9288;
+  --dark:#14120f;
+  --gold:#b58a55;
+  --line:rgba(23,21,18,.13);
+  --shadow:0 22px 70px rgba(34,28,22,.10);
+  --radius:28px;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter, Arial, sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 12% 4%, rgba(181,138,85,.16), transparent 28%),
+    linear-gradient(180deg,#f6f3ed,#eee7dc);
+}
+a{color:inherit;text-decoration:none}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+h1,h2,h3{font-family:Georgia,'Times New Roman',serif;font-weight:400;letter-spacing:-.045em;margin:0;color:inherit}
+
+.header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  padding:16px;
+  background:rgba(244,241,234,.78);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
+}
+.nav{
+  max-width:1280px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  padding:14px 18px;
+  border-radius:999px;
+  background:rgba(251,248,242,.82);
+  border:1px solid rgba(255,255,255,.72);
+  box-shadow:0 18px 50px rgba(22,18,14,.10);
+}
+.brand strong{display:block;font-size:17px;letter-spacing:-.02em}
+.brand span{display:block;margin-top:4px;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.header-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+.layout{
+  max-width:1280px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:240px 1fr;
+  gap:22px;
+  padding:22px 16px 70px;
+}
+.sidebar{
+  position:sticky;
+  top:112px;
+  align-self:start;
+  padding:16px;
+  border-radius:28px;
+  background:rgba(251,248,242,.72);
+  border:1px solid rgba(255,255,255,.72);
+  box-shadow:var(--shadow);
+}
+.tab-btn{
+  width:100%;
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  padding:14px 14px;
+  text-align:left;
+  border-radius:18px;
+  font-size:13px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  font-weight:800;
+  transition:.2s;
+}
+.tab-btn:hover{background:rgba(181,138,85,.12);color:var(--ink)}
+.tab-btn.active{background:var(--dark);color:#fff}
+
+.main{min-width:0}
+.panel{display:none}
+.panel.active{display:block}
+.topline{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:20px;
+  margin:18px 0 24px;
+}
+.topline h1{font-size:clamp(42px,5vw,72px);line-height:.95}
+.topline p{margin:12px 0 0;color:var(--muted);line-height:1.55;max-width:720px}
+
+.card{
+  background:rgba(251,248,242,.84);
+  border:1px solid rgba(255,255,255,.78);
+  box-shadow:var(--shadow);
+  border-radius:var(--radius);
+  padding:24px;
+  margin-bottom:18px;
+}
+.card.dark{background:linear-gradient(145deg,#171512,#2b251f);color:#fff}
+.card.dark .meta,.card.dark label{color:rgba(255,255,255,.66)}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+
+label{
+  display:block;
+  margin-bottom:7px;
+  color:var(--muted);
+  font-size:11px;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  font-weight:800;
+}
+input,textarea,select{
+  width:100%;
+  border:1px solid var(--line);
+  background:#fffdf8;
+  color:var(--ink);
+  border-radius:15px;
+  padding:13px 14px;
+  outline:none;
+}
+textarea{min-height:96px;resize:vertical;line-height:1.45}
+input:focus,textarea:focus,select:focus{border-color:rgba(181,138,85,.7);box-shadow:0 0 0 4px rgba(181,138,85,.12)}
+
+.btn{
+  border:0;
+  border-radius:999px;
+  padding:12px 18px;
+  min-height:46px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-weight:900;
+  transition:.22s;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-dark{background:var(--dark);color:#fff}
+.btn-light{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.btn-gold{background:var(--gold);color:#fff}
+.btn-danger{background:#8e3932;color:#fff}
+.btn-small{padding:9px 13px;min-height:38px;font-size:13px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:16px}
+
+.meta{color:var(--muted);font-size:14px;line-height:1.55}
+.empty{padding:30px;border-radius:24px;background:rgba(251,248,242,.78);border:1px dashed var(--line);color:var(--muted)}
+.notice{padding:14px 16px;border-radius:18px;background:rgba(181,138,85,.13);color:#5a422b;line-height:1.45;margin-bottom:18px}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+.stat{padding:20px;border-radius:24px;background:rgba(251,248,242,.78);border:1px solid rgba(255,255,255,.76);box-shadow:0 14px 36px rgba(26,20,15,.07)}
+.stat b{display:block;font-size:30px;line-height:1;margin-bottom:8px}.stat span{color:var(--muted);font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:800}
+
+.lead-row{
+  display:grid;
+  grid-template-columns:1.25fr .8fr .9fr 170px;
+  gap:16px;
+  align-items:start;
+}
+.lead-name{font-family:Georgia,'Times New Roman',serif;font-size:27px;line-height:1.05;margin-bottom:8px}
+.status-badge{display:inline-flex;padding:7px 10px;border-radius:999px;background:rgba(181,138,85,.14);color:#6e4b22;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+
+.inline-list{display:grid;gap:10px;margin-top:12px}
+.inline-item{display:grid;grid-template-columns:1fr 2fr 42px;gap:10px;align-items:start;padding:12px;border-radius:18px;background:rgba(255,255,255,.5);border:1px solid var(--line)}
+.inline-item button{width:42px;height:42px;border-radius:50%;border:0;background:#8e3932;color:#fff;font-weight:900}
+
+.preview-imgs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.preview-imgs img{width:100%;height:160px;object-fit:cover;border-radius:18px;background:#e1d8cc;border:1px solid var(--line)}
+.case-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px}
+.checkbox-label{display:flex;align-items:center;gap:9px;margin:0;text-transform:none;letter-spacing:0;font-size:14px;color:var(--ink)}
+.checkbox-label input{width:auto}
+
+.toast{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:50;
+  padding:14px 16px;
+  border-radius:18px;
+  color:#fff;
+  background:var(--dark);
+  box-shadow:0 18px 60px rgba(0,0,0,.22);
+  display:none;
+}
+.toast.show{display:block;animation:toast .25s ease both}
+@keyframes toast{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:980px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static;display:flex;overflow:auto;gap:8px}.tab-btn{white-space:nowrap;width:auto}
+  .grid-2,.grid-3,.grid-4,.lead-row,.stats{grid-template-columns:1fr}
+  .topline{flex-direction:column}.header-actions .btn{width:auto}
+}
+@media(max-width:620px){
+  .header{padding:8px}.nav{border-radius:24px;align-items:flex-start}.brand span{max-width:170px}.header-actions{justify-content:flex-end}.header-actions .btn-light{display:none}
+  .layout{padding:12px 10px 60px}.card{padding:18px;border-radius:22px}.topline h1{font-size:42px}.sidebar{padding:10px;border-radius:22px}.tab-btn{padding:11px 12px;font-size:11px}.btn{width:100%}.actions .btn{width:auto}.inline-item{grid-template-columns:1fr}.inline-item button{width:100%;border-radius:12px}.preview-imgs img{height:130px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#f4f1ea;z-index:9999;">
+  <div style="background:#fff;padding:40px;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.15);width:320px;max-width:90%;">
+    <h2 style="margin-bottom:10px;font-family:Georgia">Вход в админку</h2>
+    <p style="font-size:13px;color:#6b6258;line-height:1.45;margin-bottom:18px">
+      Демо-режим для просмотра системы:<br>
+      <b>логин:</b> demo<br>
+      <b>пароль:</b> demo123
+    </p>
+    <input id="loginUser" placeholder="Логин или email" style="width:100%;margin-bottom:10px;padding:12px;border-radius:10px;border:1px solid #ccc">
+    <input id="loginPass" type="password" placeholder="Пароль" style="width:100%;margin-bottom:16px;padding:12px;border-radius:10px;border:1px solid #ccc">
+    <button onclick="login()" style="width:100%;padding:12px;border:none;border-radius:10px;background:#14120f;color:#fff;font-weight:bold">Войти</button>
+    <p id="loginError" style="color:red;font-size:13px;margin-top:10px;display:none">Неверный логин или пароль</p>
+  </div>
+</div>
+<header class="header">
+  <nav class="nav">
+    <a class="brand" href="index.html">
+      <strong>Интерьер под задачу</strong>
+      <span>Admin · панель управления</span>
+    </a>
+    <div class="header-actions">
+      <button class="btn btn-light" onclick="seedDefaults()" type="button">Восстановить демо-данные</button>
+      <a class="btn btn-dark" href="index.html">На сайт</a>
+      <button class="btn btn-light" onclick="logout()">Выйти</button>
+    </div>
+  </nav>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <button class="tab-btn active" onclick="openTab('leads',this)">Заявки</button>
+    <button class="tab-btn" onclick="openTab('cases',this)">Кейсы</button>
+    <button class="tab-btn" onclick="openTab('packages',this)">Решения</button>
+    <button class="tab-btn" onclick="openTab('extras',this)">Усиления</button>
+    <button class="tab-btn" onclick="openTab('tasks',this)">Задачи</button>
+    <button class="tab-btn" onclick="openTab('contacts',this)">Контакты</button>
+  </aside>
+
+  <main class="main">
+    <section class="panel active" id="panel-leads">
+      <div class="topline">
+        <div>
+          <h1>Заявки с сайта.</h1>
+          <p>Сюда попадают заявки из формы и квиза. Пока всё хранится в localStorage, но структура уже похожа на будущую базу.</p>
+        </div>
+        <button class="btn btn-light" onclick="exportLeads()" type="button">Экспорт JSON</button>
+      </div>
+      <div class="stats" id="leadStats"></div>
+      <div class="actions" style="margin-bottom:18px">
+        <button class="btn btn-dark btn-small" onclick="filterLeads('all',this)">Все</button>
+        <button class="btn btn-light btn-small" onclick="filterLeads('Новая',this)">Новые</button>
+        <button class="btn btn-light btn-small" onclick="filterLeads('В работе',this)">В работе</button>
+        <button class="btn btn-light btn-small" onclick="filterLeads('Связались',this)">Связались</button>
+        <button class="btn btn-light btn-small" onclick="filterLeads('Закрыта',this)">Закрыта</button>
+      </div>
+      <div id="leadsList"></div>
+    </section>
+
+    <section class="panel" id="panel-cases">
+      <div class="topline">
+        <div>
+          <h1>Кейсы.</h1>
+          <p>Редактируй тексты, результаты, картинки ДО/ПОСЛЕ и выбирай кейс месяца. Путь к фото пишем как `images/case2-before.jpg`.</p>
+        </div>
+        <button class="btn btn-dark" onclick="addCase()" type="button">+ Новый кейс</button>
+      </div>
+      <div id="casesList"></div>
+    </section>
+
+    <section class="panel" id="panel-packages">
+      <div class="topline">
+        <div>
+          <h1>Решения.</h1>
+          <p>Это продуктовые пакеты на сайте: цена, описание и пункты “что входит”.</p>
+        </div>
+        <button class="btn btn-dark" onclick="addPackage()" type="button">+ Новое решение</button>
+      </div>
+      <div id="packagesList"></div>
+    </section>
+
+    <section class="panel" id="panel-extras">
+      <div class="topline">
+        <div>
+          <h1>Усиления.</h1>
+          <p>Дополнительные комплекты и услуги, которые увеличивают средний чек и объясняют клиенту, где появляется ценность.</p>
+        </div>
+        <button class="btn btn-dark" onclick="addExtra()" type="button">+ Новое усиление</button>
+      </div>
+      <div id="extrasList"></div>
+    </section>
+
+    <section class="panel" id="panel-tasks">
+      <div class="topline">
+        <div>
+          <h1>Задачи.</h1>
+          <p>Блок “Под какую задачу мы готовим недвижимость”.</p>
+        </div>
+        <button class="btn btn-dark" onclick="addTask()" type="button">+ Новая задача</button>
+      </div>
+      <div id="tasksList"></div>
+    </section>
+
+    <section class="panel" id="panel-contacts">
+      <div class="topline">
+        <div>
+          <h1>Контакты.</h1>
+          <p>Эти данные подтягиваются в блок заявки на сайте.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="grid-3">
+          <div><label>Email</label><input id="contactEmail" placeholder="email"></div>
+          <div><label>Телефон</label><input id="contactPhone" placeholder="телефон"></div>
+          <div><label>Telegram</label><input id="contactTelegram" placeholder="@username"></div>
+        </div>
+        <div class="actions"><button class="btn btn-dark" onclick="saveContacts()" type="button">Сохранить контакты</button></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DB={contacts:'it_contacts_v1',leads:'it_leads_v1',cases:'it_cases_v1',packages:'it_packages_v1',extras:'it_extras_v1',tasks:'it_tasks_v1'};
+const defaults={
+  contacts:{email:'denta3231@yandex.ru',phone:'+7 999 000-00-00',telegram:'@tatishablin'},
+  tasks:[
+    {number:'01',title:'Продать',text:'Чтобы объект выглядел дороже и увереннее держал цену.'},
+    {number:'02',title:'Сдать',text:'Чтобы арендатор быстрее увидел сценарий жизни и принял решение.'},
+    {number:'03',title:'Освежить',text:'Без капитального ремонта, но с ощущением нового уровня.'},
+    {number:'04',title:'Показать',text:'Подготовить к фото, просмотрам и первому впечатлению.'}
+  ],
+  cases:[
+    {id:'case2',featured:false,title:'Студия под аренду в новом микрорайоне',before:'images/case2-before.jpg',after:'images/case2-after.jpg',was:'Пустая студия без полного набора мебели и понятного сценария жизни.',did:'Зонирование, второе спальное место, свет, текстиль и ощущение готового жилья.',result:'Сдана с первого показа +25% к цене',extra:''},
+    {id:'case4',featured:false,title:'3-комнатная квартира под продажу',before:'images/case4-before.jpg',after:'images/case4-after.jpg',was:'Хороший ремонт, но устаревшее восприятие. Объект долго продавался, цену снижать не хотели.',did:'Обновили мебель, свет, текстиль и декоративный слой. Собрали современный дорогой образ.',result:'Продана +15% от изначально высокой цены',extra:''},
+    {id:'case5',featured:false,title:'Квартира для жизни после покупки',before:'images/case5-before.jpg',after:'images/case5-after.jpg',was:'Молодая пара купила квартиру после переезда. Пространство было почти пустым.',did:'Косметика, мебель, текстиль, декор и понятные сценарии жизни.',result:'Готова к жизни сразу после покупки',extra:''},
+    {id:'case3',featured:true,title:'Студия с лофтом в тихом центре',before:'images/case3-before.jpg',after:'images/case3-after.jpg',was:'Студия с хорошим потенциалом, но без сильного образа. Лофт был, но не работал как вау-фактор.',did:'Усилили архитектуру второго уровня, добавили свет, фактуры, акценты и сценарий жизни.',result:'Продана за 7 дней +30%',extra:'После сделки клиент передал ещё 3 квартиры в этом же доме для подготовки к продаже.'}
+  ],
+  packages:[
+    {id:'fast',title:'Быстрое обновление',price:'от 90 000 ₽',featured:false,text:'Когда объект нормальный, но выглядит дешевле, чем есть.',items:['убираем визуальный шум','выравниваем свет и композицию','добавляем текстиль и базовый декор','собираем аккуратный сценарий пространства']},
+    {id:'sale',title:'Подготовка к продаже / аренде',price:'от 240 000 ₽',featured:true,text:'Когда важно увеличить цену и сократить срок сделки.',items:['переупаковка под покупателя или арендатора','зонирование и сценарии жизни','обновление мебели и ключевых точек','подготовка к фото, видео и показам']},
+    {id:'max',title:'Максимизация стоимости',price:'от 480 000 ₽',featured:false,text:'Когда у объекта есть потенциал выйти в другой ценовой сегмент.',items:['стратегия позиционирования объекта','работа с архитектурой и восприятием','премиальный подбор мебели, света и материалов','контроль реализации']}
+  ],
+  extras:[
+    {id:'show-kit',number:'01',featured:true,title:'Комплект “Подготовка к показу”',text:'Фотосессия + декор + свет. Всё, что влияет на первое впечатление, объявление и сам просмотр.',value:'Выгоднее, чем собирать по частям: объект получает цельный образ, а не набор случайных улучшений.',oldPrice:'55 000 ₽',price:'45 000 ₽',parts:[{title:'Фотосъёмка',text:'делает объект заметнее в выдаче и повышает доверие до просмотра'},{title:'Декор и текстиль',text:'создают ощущение “здесь хочется жить”, а не просто смотреть метры'},{title:'Свет и акценты',text:'подсвечивают сильные зоны и убирают ощущение случайности'}]},
+    {id:'visual-upgrade',number:'02',featured:true,title:'Комплект “Быстрый апгрейд восприятия”',text:'Точечно усиливаем зоны, которые чаще всего снижают впечатление: ванная, балкон, входная зона или пустой угол.',value:'Результат — объект выглядит собраннее и дороже без большого ремонта и долгих работ.',oldPrice:'70 000 ₽',price:'55 000 ₽',parts:[{title:'Ванная',text:'убирает ощущение “здесь придётся вкладываться сразу после покупки”'},{title:'Балкон / лоджия',text:'превращает забытые метры в понятный сценарий: хранение, кофе, рабочее место'},{title:'Входная зона',text:'создаёт правильное первое впечатление ещё до просмотра комнат'}]},
+    {id:'photo',number:'03',featured:false,title:'Профессиональная фотосессия',text:'Кадры под объявление, презентацию или показ собственнику.',value:'Больше доверия к объекту ещё до просмотра.',oldPrice:'',price:'от 25 000 ₽',parts:[{title:'Кадры для объявления',text:'помогают объекту выглядеть дороже среди похожих вариантов'},{title:'Акценты на ценности',text:'показываем не просто комнаты, а преимущества планировки и сценарии жизни'}]},
+    {id:'decor',number:'04',featured:false,title:'Набор декора для показа',text:'Текстиль, аромат, свет и детали, которые создают ощущение “здесь хочется жить”.',value:'Усиливает первое впечатление на показе.',oldPrice:'',price:'от 30 000 ₽',parts:[{title:'Текстиль',text:'добавляет мягкость, тепло и ощущение готового жилья'},{title:'Аромат и детали',text:'работают на эмоцию, которую человек запоминает после просмотра'}]}
+  ]
+};
+let leadFilter='all';
+
+function getData(key,fallback=[]){return JSON.parse(localStorage.getItem(DB[key])||JSON.stringify(fallback))}
+function setData(key,value){localStorage.setItem(DB[key],JSON.stringify(value))}
+function ensureData(){Object.keys(defaults).forEach(key=>{if(!localStorage.getItem(DB[key]))setData(key,defaults[key])});if(!localStorage.getItem(DB.leads))setData('leads',[]);migrateData()}
+function migrateData(){const c=getData('contacts',defaults.contacts);if(!c.email||c.email.includes('drnta'))c.email='denta3231@yandex.ru';setData('contacts',c)}
+function toast(text){const el=document.getElementById('toast');el.textContent=text;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2400)}
+function escapeAttr(str=''){return String(str).replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;').replaceAll('>','&gt;')}
+function openTab(name,btn){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById('panel-'+name).classList.add('active');btn.classList.add('active')}
+
+function seedDefaults(){if(!confirm('Восстановить демо-данные? Заявки сохранятся, а кейсы/решения/усиления/задачи/контакты будут перезаписаны.'))return;['contacts','tasks','cases','packages','extras'].forEach(k=>setData(k,defaults[k]));renderAll();toast('Демо-данные восстановлены')}
+
+function renderStats(){const leads=getData('leads');const count=s=>leads.filter(l=>l.status===s).length;document.getElementById('leadStats').innerHTML=`<div class="stat"><b>${leads.length}</b><span>Всего</span></div><div class="stat"><b>${count('Новая')}</b><span>Новые</span></div><div class="stat"><b>${count('В работе')}</b><span>В работе</span></div><div class="stat"><b>${count('Закрыта')}</b><span>Закрыта</span></div>`}
+function filterLeads(status,btn){leadFilter=status;btn.parentElement.querySelectorAll('.btn').forEach(b=>{b.classList.remove('btn-dark');b.classList.add('btn-light')});btn.classList.remove('btn-light');btn.classList.add('btn-dark');renderLeads()}
+function renderLeads(){renderStats();const all=getData('leads');const leads=leadFilter==='all'?all:all.filter(l=>l.status===leadFilter);const box=document.getElementById('leadsList');if(!leads.length){box.innerHTML='<div class="empty">Заявок пока нет в этом статусе. Отправь тестовую заявку с сайта — она появится здесь.</div>';return}box.innerHTML=leads.map(l=>`<div class="card"><div class="lead-row"><div><div class="lead-name">${l.name||'Без имени'}</div><p class="meta">${l.phone||'-'}<br>${l.date||''}</p><span class="status-badge">${l.status||'Новая'}</span></div><div><label>Задача</label><p>${l.task||'-'}</p></div><div><label>Формат</label><p>${l.package||'-'}</p></div><div><label>Статус</label><select onchange="updateLeadStatus(${l.id},this.value)">${['Новая','В работе','Связались','Закрыта'].map(s=>`<option ${l.status===s?'selected':''}>${s}</option>`).join('')}</select></div></div><br><label>Сообщение / ответы квиза</label><div class="notice">${(l.message||'-').replace(/\n/g,'<br>')}</div><div class="actions"><button class="btn btn-danger btn-small" onclick="deleteLead(${l.id})">Удалить</button></div></div>`).join('')}
+function updateLeadStatus(id,status){setData('leads',getData('leads').map(l=>l.id===id?{...l,status}:l));renderLeads();toast('Статус обновлён')}
+function deleteLead(id){if(!confirm('Удалить заявку?'))return;setData('leads',getData('leads').filter(l=>l.id!==id));renderLeads();toast('Заявка удалена')}
+function exportLeads(){const data=JSON.stringify(getData('leads'),null,2);navigator.clipboard.writeText(data).then(()=>toast('JSON заявок скопирован')).catch(()=>alert(data))}
+
+function renderCases(){const cases=getData('cases');const box=document.getElementById('casesList');if(!cases.length){box.innerHTML='<div class="empty">Кейсов пока нет.</div>';return}box.innerHTML=cases.map((c,i)=>`<div class="card ${c.featured?'dark':''}"><div class="grid-2"><div><label>Название</label><input value="${escapeAttr(c.title)}" onchange="editCase(${i},'title',this.value)"></div><div><label>Результат крупно</label><input value="${escapeAttr(c.result)}" onchange="editCase(${i},'result',this.value)"></div><div><label>Фото ДО</label><input value="${escapeAttr(c.before)}" onchange="editCase(${i},'before',this.value);renderCases()"></div><div><label>Фото ПОСЛЕ</label><input value="${escapeAttr(c.after)}" onchange="editCase(${i},'after',this.value);renderCases()"></div></div><div class="preview-imgs"><img src="${c.before}" alt="до"><img src="${c.after}" alt="после"></div><br><div class="grid-2"><div><label>Было</label><textarea onchange="editCase(${i},'was',this.value)">${c.was||''}</textarea></div><div><label>Сделали</label><textarea onchange="editCase(${i},'did',this.value)">${c.did||''}</textarea></div></div><br><label>Дополнительная строка</label><textarea onchange="editCase(${i},'extra',this.value)">${c.extra||''}</textarea><div class="case-tools"><label class="checkbox-label"><input type="checkbox" ${c.featured?'checked':''} onchange="setFeaturedCase(${i},this.checked)"> Кейс месяца</label><button class="btn btn-danger btn-small" onclick="deleteCase(${i})">Удалить</button></div></div>`).join('')}
+function editCase(i,field,value){const a=getData('cases');a[i][field]=value;setData('cases',a);toast('Кейс сохранён')}
+function setFeaturedCase(i,checked){const a=getData('cases').map((c,idx)=>({...c,featured:checked?idx===i:c.featured}));setData('cases',a);renderCases();toast('Кейс месяца обновлён')}
+function addCase(){const a=getData('cases');a.push({id:'case-'+Date.now(),featured:false,title:'Новый кейс',before:'images/case1-before.jpg',after:'images/case1-after.jpg',was:'Что было до подготовки.',did:'Что сделали.',result:'Результат',extra:''});setData('cases',a);renderCases();toast('Кейс добавлен')}
+function deleteCase(i){if(!confirm('Удалить кейс?'))return;const a=getData('cases');a.splice(i,1);setData('cases',a);renderCases();toast('Кейс удалён')}
+
+function renderPackages(){const packs=getData('packages');document.getElementById('packagesList').innerHTML=packs.map((p,i)=>`<div class="card ${p.featured?'dark':''}"><div class="grid-3"><div><label>Название</label><input value="${escapeAttr(p.title)}" onchange="editPackage(${i},'title',this.value)"></div><div><label>Цена</label><input value="${escapeAttr(p.price)}" onchange="editPackage(${i},'price',this.value)"></div><div><label>Выделить на сайте</label><select onchange="editPackage(${i},'featured',this.value==='true');renderPackages()"><option value="false" ${!p.featured?'selected':''}>Нет</option><option value="true" ${p.featured?'selected':''}>Да</option></select></div></div><br><label>Описание</label><textarea onchange="editPackage(${i},'text',this.value)">${p.text||''}</textarea><br><br><label>Что входит — каждый пункт с новой строки</label><textarea onchange="editPackageItems(${i},this.value)">${(p.items||[]).join('\n')}</textarea><div class="actions"><button class="btn btn-danger btn-small" onclick="deletePackage(${i})">Удалить</button></div></div>`).join('')}
+function editPackage(i,field,value){const a=getData('packages');a[i][field]=value;setData('packages',a);toast('Решение сохранено')}
+function editPackageItems(i,value){const a=getData('packages');a[i].items=value.split('\n').map(x=>x.trim()).filter(Boolean);setData('packages',a);toast('Список обновлён')}
+function addPackage(){const a=getData('packages');a.push({id:'package-'+Date.now(),title:'Новое решение',price:'от 0 ₽',featured:false,text:'Описание решения.',items:['Пункт 1','Пункт 2']});setData('packages',a);renderPackages();toast('Решение добавлено')}
+function deletePackage(i){if(!confirm('Удалить решение?'))return;const a=getData('packages');a.splice(i,1);setData('packages',a);renderPackages();toast('Решение удалено')}
+
+function renderExtras(){const extras=getData('extras');document.getElementById('extrasList').innerHTML=extras.map((e,i)=>`<div class="card ${e.featured?'dark':''}"><div class="grid-4"><div><label>Номер</label><input value="${escapeAttr(e.number)}" onchange="editExtra(${i},'number',this.value)"></div><div><label>Название</label><input value="${escapeAttr(e.title)}" onchange="editExtra(${i},'title',this.value)"></div><div><label>Старая цена</label><input value="${escapeAttr(e.oldPrice||'')}" onchange="editExtra(${i},'oldPrice',this.value)"></div><div><label>Цена</label><input value="${escapeAttr(e.price)}" onchange="editExtra(${i},'price',this.value)"></div></div><br><label>Описание</label><textarea onchange="editExtra(${i},'text',this.value)">${e.text||''}</textarea><br><br><label>Выгода / результат комплекта</label><textarea onchange="editExtra(${i},'value',this.value)">${e.value||''}</textarea><br><br><label>Мини-плашки “что даёт”</label><div class="inline-list" id="parts-${i}">${(e.parts||[]).map((p,pi)=>partHTML(i,pi,p)).join('')}</div><div class="actions"><button class="btn btn-light btn-small" onclick="addPart(${i})">+ Плашка</button><label class="checkbox-label"><input type="checkbox" ${e.featured?'checked':''} onchange="editExtra(${i},'featured',this.checked);renderExtras()"> Часто добавляют</label><button class="btn btn-danger btn-small" onclick="deleteExtra(${i})">Удалить</button></div></div>`).join('')}
+function partHTML(i,pi,p){return `<div class="inline-item"><input value="${escapeAttr(p.title)}" placeholder="Название" onchange="editPart(${i},${pi},'title',this.value)"><textarea placeholder="Что даёт" onchange="editPart(${i},${pi},'text',this.value)">${p.text||''}</textarea><button onclick="deletePart(${i},${pi})">×</button></div>`}
+function editExtra(i,field,value){const a=getData('extras');a[i][field]=value;setData('extras',a);toast('Усиление сохранено')}
+function addPart(i){const a=getData('extras');a[i].parts=a[i].parts||[];a[i].parts.push({title:'Новая плашка',text:'Что это даёт клиенту'});setData('extras',a);renderExtras();toast('Плашка добавлена')}
+function editPart(i,pi,field,value){const a=getData('extras');a[i].parts[pi][field]=value;setData('extras',a);toast('Плашка сохранена')}
+function deletePart(i,pi){const a=getData('extras');a[i].parts.splice(pi,1);setData('extras',a);renderExtras();toast('Плашка удалена')}
+function addExtra(){const a=getData('extras');a.push({id:'extra-'+Date.now(),number:'00',featured:false,title:'Новое усиление',text:'Описание.',value:'Что это даёт клиенту.',oldPrice:'',price:'от 0 ₽',parts:[{title:'Плашка',text:'Объяснение ценности'}]});setData('extras',a);renderExtras();toast('Усиление добавлено')}
+function deleteExtra(i){if(!confirm('Удалить усиление?'))return;const a=getData('extras');a.splice(i,1);setData('extras',a);renderExtras();toast('Усиление удалено')}
+
+function renderTasks(){const tasks=getData('tasks');document.getElementById('tasksList').innerHTML=tasks.map((t,i)=>`<div class="card"><div class="grid-3"><div><label>Номер</label><input value="${escapeAttr(t.number)}" onchange="editTask(${i},'number',this.value)"></div><div><label>Название</label><input value="${escapeAttr(t.title)}" onchange="editTask(${i},'title',this.value)"></div><div><label>Действие</label><button class="btn btn-danger" onclick="deleteTask(${i})">Удалить</button></div></div><br><label>Описание</label><textarea onchange="editTask(${i},'text',this.value)">${t.text||''}</textarea></div>`).join('')}
+function editTask(i,field,value){const a=getData('tasks');a[i][field]=value;setData('tasks',a);toast('Задача сохранена')}
+function addTask(){const a=getData('tasks');a.push({number:'00',title:'Новая задача',text:'Описание задачи.'});setData('tasks',a);renderTasks();toast('Задача добавлена')}
+function deleteTask(i){if(!confirm('Удалить задачу?'))return;const a=getData('tasks');a.splice(i,1);setData('tasks',a);renderTasks();toast('Задача удалена')}
+
+function renderContacts(){const c=getData('contacts',defaults.contacts);document.getElementById('contactEmail').value=c.email||'';document.getElementById('contactPhone').value=c.phone||'';document.getElementById('contactTelegram').value=c.telegram||''}
+function saveContacts(){setData('contacts',{email:contactEmail.value.trim(),phone:contactPhone.value.trim(),telegram:contactTelegram.value.trim()});toast('Контакты сохранены')}
+function renderAll(){renderLeads();renderCases();renderPackages();renderExtras();renderTasks();renderContacts()}
+ensureData();renderAll();initAuth();
+
+function initAuth(){
+  const isAuth=localStorage.getItem('admin_auth');
+  if(isAuth==='true'){
+    document.getElementById('loginScreen').style.display='none';
+    applyRole();
+  }
+}
+
+function login(){
+  const u=document.getElementById('loginUser').value.trim();
+  const p=document.getElementById('loginPass').value;
+
+  if(u==='demo' && p==='demo123'){
+    localStorage.setItem('admin_auth','true');
+    localStorage.setItem('admin_role','demo');
+    document.getElementById('loginScreen').style.display='none';
+    applyRole();
+    return;
+  }
+
+  if(u==='admin' && p==='admin123'){
+    localStorage.setItem('admin_auth','true');
+    localStorage.setItem('admin_role','admin');
+    document.getElementById('loginScreen').style.display='none';
+    applyRole();
+    return;
+  }
+
+  document.getElementById('loginError').style.display='block';
+}
+
+function applyRole(){
+  const role=localStorage.getItem('admin_role')||'demo';
+  const isDemo=role==='demo';
+  document.querySelectorAll('input, textarea, select').forEach(el=>{
+    if(el.id==='loginUser' || el.id==='loginPass') return;
+    el.disabled=isDemo;
+  });
+  document.querySelectorAll('button').forEach(btn=>{
+    const text=btn.textContent.trim();
+    const allowed=['Заявки','Кейсы','Решения','Усиления','Задачи','Контакты','На сайт','Выйти','Экспорт JSON','Все','Новые','В работе','Связались','Закрыта'];
+    if(btn.closest('#loginScreen')) return;
+    if(isDemo && !allowed.includes(text)) btn.disabled=true;
+  });
+  if(isDemo){
+    toast('Вы вошли в демо-режиме: доступен просмотр без редактирования');
+  }else{
+    toast('Вы вошли с полным админ-доступом');
+  }
+}
+
+function logout(){
+  localStorage.removeItem('admin_auth');
+  localStorage.removeItem('admin_role');
+  location.reload();
+}
+</script>
+</body>
+</html>
