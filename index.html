@@ -1,561 +1,244 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Интерьер под задачу — студия капитализации недвижимости</title>
-<meta name="description" content="Подготовка недвижимости к продаже, аренде и жизни через интерьер. Увеличиваем воспринимаемую ценность объекта без капитального ремонта." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>РА Рекламные решения — реклама, которая приводит к результату</title>
+  <meta name="description" content="Дизайн, производство и монтаж рекламных решений под ключ: вывески, полиграфия, оформление пространств, бренд-материалы и наружная реклама." />
 
-<style>
-:root{
-  --bg:#f4f1ea;
-  --bg2:#ebe5da;
-  --paper:#fbf8f2;
-  --paper2:#f7f1e8;
-  --ink:#171512;
-  --muted:#625b52;
-  --muted2:#8a8177;
-  --dark:#14120f;
-  --dark2:#2b251f;
-  --gold:#b58a55;
-  --gold2:#d8bf96;
-  --line:rgba(23,21,18,.13);
-  --whiteLine:rgba(255,255,255,.18);
-  --shadow:0 24px 70px rgba(34,28,22,.12);
-  --shadow2:0 42px 120px rgba(25,20,16,.22);
-  --radius:30px;
-  --max:1180px;
-}
-
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  font-family:Inter, Arial, sans-serif;
-  color:var(--ink);
-  background:
-    radial-gradient(circle at 12% 4%, rgba(181,138,85,.18), transparent 30%),
-    radial-gradient(circle at 85% 18%, rgba(80,70,60,.08), transparent 34%),
-    linear-gradient(180deg,var(--bg),var(--bg2));
-  overflow-x:hidden;
-}
-body.modal-open{overflow:hidden}
-a{color:inherit;text-decoration:none}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-img{max-width:100%}
-
-h1,h2,h3{font-family:Georgia,'Times New Roman',serif;font-weight:400;letter-spacing:-.052em;margin:0;color:inherit}
-h1{font-size:clamp(52px,7vw,98px);line-height:.9}
-h2{font-size:clamp(42px,5.2vw,76px);line-height:.94}
-h3{font-size:clamp(26px,2.6vw,40px);line-height:1.02}
-p{margin:0}
-
-.section{max-width:var(--max);margin:0 auto;padding:96px 22px;position:relative}
-.section-wide{max-width:1320px;margin:0 auto;padding:96px 18px;position:relative}
-.eyebrow{display:inline-flex;align-items:center;gap:12px;margin-bottom:18px;color:var(--gold);font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:800}
-.eyebrow:before{content:"";width:38px;height:1px;background:var(--gold)}
-.lead{max-width:700px;color:var(--muted);font-size:18px;line-height:1.65;margin-top:20px}
-
-/* ambient */
-.ambient{position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden}
-.ambient span{position:absolute;border-radius:999px;filter:blur(44px);opacity:.36;transform:translate3d(0,0,0)}
-.ambient .a1{width:360px;height:360px;background:rgba(181,138,85,.18);left:-80px;top:12vh;animation:floatA 18s ease-in-out infinite}
-.ambient .a2{width:420px;height:420px;background:rgba(75,65,55,.10);right:-120px;top:34vh;animation:floatB 22s ease-in-out infinite}
-.ambient .a3{width:300px;height:300px;background:rgba(255,255,255,.34);left:30vw;bottom:-110px;animation:floatA 20s ease-in-out infinite reverse}
-@keyframes floatA{50%{transform:translate(60px,40px) scale(1.08)}}
-@keyframes floatB{50%{transform:translate(-50px,-60px) scale(.94)}}
-
-/* buttons */
-.btn{border:0;border-radius:999px;padding:15px 23px;display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:800;transition:transform .25s ease, box-shadow .25s ease, background .25s ease;min-height:50px}
-.btn:hover{transform:translateY(-2px)}
-.btn-dark{background:var(--dark);color:#fff;box-shadow:0 18px 40px rgba(20,18,15,.18)}
-.btn-dark:hover{box-shadow:0 22px 56px rgba(20,18,15,.28)}
-.btn-light{background:rgba(255,255,255,.92);color:var(--dark);border:1px solid rgba(255,255,255,.78);box-shadow:0 18px 46px rgba(0,0,0,.10)}
-.btn-ghost{background:rgba(20,18,15,.26);color:#fff;border:1px solid rgba(255,255,255,.12)}
-.btn-outline{background:transparent;color:var(--dark);border:1px solid var(--line)}
-
-/* nav */
-.header{position:fixed;top:16px;left:0;right:0;padding:0 16px;z-index:100;pointer-events:none}
-.nav{max-width:1220px;margin:auto;padding:12px 14px 12px 20px;border-radius:999px;background:rgba(251,248,242,.76);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.72);box-shadow:0 18px 55px rgba(22,18,14,.12);display:flex;align-items:center;justify-content:space-between;gap:16px;pointer-events:auto}
-.brand{display:flex;flex-direction:column;line-height:1.05;min-width:220px}
-.brand strong{font-size:16px;letter-spacing:-.02em}
-.brand span{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:4px}
-.nav-links{display:flex;align-items:center;gap:2px}
-.nav-links a{padding:10px 11px;border-radius:999px;color:#5d564e;font-size:14px;transition:.2s}
-.nav-links a:hover{background:rgba(181,138,85,.14);color:var(--ink)}
-.nav-actions{display:flex;align-items:center;gap:10px}
-.menu-btn{display:none}
-
-/* hero */
-.hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;padding:122px 40px 54px;color:#fff;overflow:hidden;background:#111}
-.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transform:scale(1.045);animation:heroZoom 12s ease forwards}
-@keyframes heroZoom{to{transform:scale(1)}}
-.hero:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(10,9,8,.72) 0%,rgba(10,9,8,.34) 48%,rgba(10,9,8,.06) 100%)}
-.hero:after{content:"";position:absolute;inset:auto 0 0 0;height:28%;z-index:1;background:linear-gradient(180deg,transparent,var(--bg))}
-.hero-card{position:relative;z-index:2;width:min(650px,100%);padding:36px;border-radius:34px;background:linear-gradient(135deg,rgba(18,16,14,.80),rgba(18,16,14,.48));backdrop-filter:blur(13px);border:1px solid rgba(255,255,255,.16);box-shadow:0 38px 110px rgba(0,0,0,.32);animation:rise .8s ease both}
-@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
-.hero-card .eyebrow{color:var(--gold2)}
-.hero-card .eyebrow:before{background:var(--gold2)}
-.hero-card p{margin-top:20px;color:rgba(255,255,255,.78);font-size:19px;line-height:1.55;font-weight:600}
-.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
-.hero-proof{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:30px}
-.hero-proof div{padding:16px;border-radius:18px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.14)}
-.hero-proof b{display:block;font-size:26px;line-height:1;color:#fff;margin-bottom:7px}
-.hero-proof span{font-size:12px;line-height:1.35;color:rgba(255,255,255,.68);display:block}
-
-/* intro */
-.intro-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:48px;align-items:start}
-.soft-card{padding:34px;border-radius:var(--radius);background:rgba(251,248,242,.78);border:1px solid rgba(255,255,255,.75);box-shadow:var(--shadow)}
-.soft-card p{font-size:22px;line-height:1.56;color:#413a34}
-
-/* tasks */
-.tasks{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
-.task-card{min-height:220px;padding:27px;border-radius:26px;background:rgba(251,248,242,.70);border:1px solid rgba(255,255,255,.72);box-shadow:0 18px 44px rgba(30,24,18,.08);transition:.25s ease}
-.task-card:hover{transform:translateY(-7px);box-shadow:var(--shadow)}
-.task-card .num{color:var(--gold);font-size:13px;font-weight:900;letter-spacing:.12em}
-.task-card h3{font-size:29px;margin:34px 0 14px}
-.task-card p{color:var(--muted);line-height:1.55}
-
-/* compare cases */
-.cases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:42px}
-.case-card{padding:22px;border-radius:28px;background:rgba(251,248,242,.84);border:1px solid rgba(255,255,255,.78);box-shadow:0 20px 54px rgba(26,20,15,.10);transition:.26s ease;overflow:hidden}
-.case-card:hover{transform:translateY(-8px);box-shadow:var(--shadow2)}
-.compare{--pos:42%;position:relative;overflow:hidden;border-radius:22px;height:342px;background:#ded7cc;touch-action:none;cursor:ew-resize;isolation:isolate}
-.compare > img,.compare .before img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .7s ease, filter .7s ease}
-.compare:hover > img,.compare:hover .before img{transform:scale(1.045)}
-.compare .before{position:absolute;inset:0 auto 0 0;width:var(--pos);overflow:hidden;z-index:1}
-.compare .before img{filter:saturate(.76) brightness(.86)}
-.compare:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.08),transparent 48%,rgba(0,0,0,.08));z-index:2;pointer-events:none}
-.compare:after{content:"Потяните, чтобы сравнить";position:absolute;left:50%;bottom:14px;z-index:5;transform:translateX(-50%);padding:7px 12px;border-radius:999px;background:rgba(18,16,14,.56);color:#fff;font-size:10px;letter-spacing:.10em;text-transform:uppercase;font-weight:800;opacity:0;transition:.22s;white-space:nowrap;pointer-events:none}
-.compare:hover:after{opacity:1}
-.handle{position:absolute;top:0;bottom:0;left:var(--pos);width:3px;background:rgba(255,255,255,.95);z-index:3;transform:translateX(-50%);box-shadow:0 0 0 1px rgba(0,0,0,.08)}
-.handle:after{content:"← →";position:absolute;left:50%;top:50%;width:48px;height:48px;transform:translate(-50%,-50%);border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.96);color:#211e19;font-weight:800;box-shadow:0 12px 30px rgba(0,0,0,.20)}
-.compare-label{position:absolute;top:14px;z-index:4;padding:7px 12px;border-radius:999px;background:rgba(18,16,14,.70);color:#fff;font-size:12px;text-transform:uppercase;letter-spacing:.07em;font-weight:800}
-.compare-label.left{left:14px}.compare-label.right{right:14px}
-.case-card h3{font-size:30px;margin:20px 0 16px}
-.case-copy{color:var(--muted);line-height:1.52;font-size:16px}
-.case-copy p + p{margin-top:9px}
-.case-result{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);font-size:28px;line-height:1.05;font-weight:900;color:var(--ink)}
-
-/* month */
-.month-wrap{padding:24px;border-radius:36px;background:linear-gradient(145deg,rgba(251,248,242,.88),rgba(239,231,220,.84));box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.78)}
-.month-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:26px;align-items:stretch}
-.month-grid .compare{height:455px}
-.month-grid .compare > img,.month-grid .compare .before img{object-fit:contain;background:#ded7cc;object-position:center}
-.month-text{padding:34px;border-radius:28px;background:rgba(251,248,242,.92);border:1px solid var(--line);display:flex;flex-direction:column;justify-content:center}
-.badge{align-self:flex-start;padding:8px 13px;border-radius:999px;background:var(--dark);color:#fff;font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:900;margin-bottom:18px}
-.month-text h3{font-size:42px;margin-bottom:18px}
-.month-text p{color:#4e473f;line-height:1.56;font-size:17px}
-.month-text p + p{margin-top:9px}
-.month-result{margin:28px 0 18px;font-size:54px;line-height:1;font-weight:900;color:var(--ink);letter-spacing:-.04em}
-.month-extra{padding-top:18px;border-top:1px solid var(--line)}
-
-/* approach */
-.approach-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:40px}
-.approach-card{padding:32px;border-radius:28px;background:rgba(251,248,242,.70);border:1px solid rgba(255,255,255,.74);box-shadow:0 18px 44px rgba(30,24,18,.08)}
-.approach-card b{display:block;font-size:24px;margin-bottom:13px}
-.approach-card p{color:var(--muted);line-height:1.56;font-size:17px}
-
-/* quiz band */
-.quiz-band{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;padding:56px;border-radius:38px;color:#fff;background:
-  radial-gradient(circle at 84% 20%,rgba(181,138,85,.18),transparent 28%),
-  linear-gradient(135deg,rgba(20,18,15,.98),rgba(61,52,43,.96));box-shadow:var(--shadow2);overflow:hidden;position:relative}
-.quiz-band:before{content:"";position:absolute;width:420px;height:420px;right:-190px;bottom:-220px;border-radius:999px;background:rgba(255,255,255,.06);filter:blur(20px)}
-.quiz-band > *{position:relative;z-index:1}
-.quiz-band h2{color:#fff}
-.quiz-band p{margin-top:18px;color:rgba(255,255,255,.72);font-size:19px;line-height:1.6}
-.quiz-note{padding:24px;border-radius:24px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.82);line-height:1.55}
-
-/* products */
-.products{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:42px}
-.product{min-height:570px;padding:32px;border-radius:30px;background:rgba(251,248,242,.82);border:1px solid rgba(255,255,255,.78);box-shadow:0 20px 54px rgba(26,20,15,.10);display:flex;flex-direction:column;position:relative;overflow:hidden}
-.product.featured{background:linear-gradient(145deg,var(--dark),var(--dark2));color:#fff;transform:translateY(-16px);box-shadow:var(--shadow2)}
-.product h3{font-size:36px;margin:20px 0 14px}
-.product .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:900}
-.product p,.product li{color:var(--muted);line-height:1.52}
-.product.featured p,.product.featured li{color:rgba(255,255,255,.70)}
-.price{font-size:34px;font-weight:900;margin:22px 0;color:var(--gold)}
-.product ul{padding-left:18px;margin:6px 0 28px}.product li{margin-bottom:10px}
-.product .btn{margin-top:auto}
-
-/* extras */
-.extras{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:42px}
-.extra-card{min-height:330px;padding:30px;border-radius:30px;background:rgba(251,248,242,.82);border:1px solid rgba(255,255,255,.78);box-shadow:0 18px 48px rgba(26,20,15,.09);display:flex;flex-direction:column;position:relative;overflow:hidden}
-.extra-card.featured:before{content:"часто добавляют";position:absolute;top:18px;right:18px;padding:7px 11px;border-radius:999px;background:var(--dark);color:#fff;font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:900}
-.extra-card .num{color:var(--gold);font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:900}
-.extra-card h3{font-size:32px;margin:26px 0 12px}
-.extra-card p{color:var(--muted);line-height:1.55}
-.extra-value{margin:18px 0;padding:13px 15px;border-radius:17px;background:rgba(181,138,85,.15);color:#503820;line-height:1.45}
-.extra-parts{display:grid;gap:10px;margin:16px 0}
-.extra-part{padding:12px 13px;border-radius:16px;background:rgba(255,255,255,.55);border:1px solid var(--line)}
-.extra-part b{display:block;margin-bottom:5px;color:var(--ink)}
-.extra-part span{display:block;color:var(--muted);line-height:1.42;font-size:14px}
-.form-card.quiz-mode select[name="task"],.form-card.quiz-mode select[name="package"]{display:none}
-.extra-price{font-size:25px;font-weight:900;margin-top:auto;margin-bottom:18px}
-.extra-price s{color:#9c9288;font-weight:400;margin-right:8px}
-
-/* process */
-.process{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:42px;counter-reset:step}
-.step{counter-increment:step;min-height:250px;padding:28px;border-radius:28px;background:rgba(251,248,242,.72);border:1px solid rgba(255,255,255,.76);box-shadow:0 16px 42px rgba(26,20,15,.08)}
-.step:before{content:"0" counter(step);display:block;color:var(--gold);font-weight:900;margin-bottom:44px;letter-spacing:.08em}
-.step b{display:block;font-size:22px;margin-bottom:11px}.step p{color:var(--muted);line-height:1.5}
-
-/* final */
-.final{max-width:1320px;margin:0 auto 0;padding:0 18px 96px}
-.final-inner{padding:56px;border-radius:0;background:var(--dark);color:#fff;box-shadow:var(--shadow2)}
-.final-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:32px;align-items:stretch}
-.contact-card,.form-card{padding:34px;border-radius:30px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(14px)}
-.final h2{color:#fff}.contact-card p{color:rgba(255,255,255,.72);line-height:1.6;margin-top:20px}
-.contacts{display:grid;gap:12px;margin-top:28px}.contacts a{padding:15px 16px;border-radius:18px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.92)}
-.form-grid{display:grid;gap:14px}
-.form-card input,.form-card select,.form-card textarea{width:100%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.93);color:#171512;border-radius:17px;padding:15px 16px;outline:none}
-.form-card textarea{min-height:106px;resize:vertical}.form-card select option{color:#111}
-.policy-check{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(255,255,255,.68);text-transform:uppercase;letter-spacing:.06em}.policy-check input{width:auto;margin-top:3px}.link-inline{color:#e7c99d;text-decoration:underline;cursor:pointer}
-.success{display:none;margin-bottom:14px;padding:14px;border-radius:16px;background:rgba(95,194,131,.14);border:1px solid rgba(95,194,131,.26);color:#c5f4d4}
-
-/* modal */
-.modal{display:none;position:fixed;inset:0;z-index:200;align-items:center;justify-content:center;padding:22px;background:rgba(18,17,15,.72);backdrop-filter:blur(13px)}
-.modal.open{display:flex}.modal-box{position:relative;width:min(850px,100%);max-height:88vh;overflow:auto;padding:34px;border-radius:30px;background:var(--paper);box-shadow:0 40px 130px rgba(0,0,0,.34)}
-.close{position:absolute;top:16px;right:16px;width:40px;height:40px;border:0;border-radius:50%;background:#efe5d7;color:#211e19;font-size:24px;line-height:1}
-.quiz-step{display:none}.quiz-step.active{display:block}.quiz-step h2{font-size:clamp(42px,4.8vw,70px)}
-.quiz-options{display:grid;gap:12px;margin-top:26px}.quiz-option{padding:18px 18px;border-radius:18px;border:1px solid var(--line);background:#fffaf4;text-align:left;color:#1d1a16;transition:.22s}.quiz-option:hover{border-color:var(--gold);background:#f4eadb;transform:translateY(-2px)}
-.quiz-hint{margin-top:18px;padding:16px 18px;border-radius:20px;background:rgba(181,138,85,.13);color:#5a422b;line-height:1.5;display:none}.quiz-hint.show{display:block}
-
-.reveal{opacity:0;transform:translateY(30px);transition:.8s cubic-bezier(.2,.8,.2,1)}.reveal.visible{opacity:1;transform:translateY(0)}
-
-@media(max-width:1060px){
-  .nav-links{display:none;position:absolute;top:76px;left:16px;right:16px;padding:14px;border-radius:24px;background:rgba(251,248,242,.98);box-shadow:var(--shadow2);flex-direction:column;align-items:stretch}.nav-links.open{display:flex}.menu-btn{display:inline-flex}.nav .btn-light{display:none}
-  .tasks,.cases,.products,.process,.approach-grid,.intro-grid,.quiz-band,.final-grid,.extras,.month-grid{grid-template-columns:1fr}.product.featured{transform:none}.month-grid .compare{height:390px}
-}
-@media(max-width:720px){
-  .header{top:10px;padding:0 10px}.nav{border-radius:24px;padding:12px}.brand{min-width:0}.brand strong{font-size:15px}.brand span{font-size:9px;max-width:190px}.section,.section-wide{padding:70px 16px}.hero{min-height:96vh;padding:108px 16px 28px}.hero:before{background:linear-gradient(180deg,rgba(10,9,8,.15),rgba(10,9,8,.86) 70%)}.hero-card{padding:24px;border-radius:26px}.hero-card h1{font-size:48px}.hero-actions{flex-direction:column}.hero-proof{grid-template-columns:1fr}.soft-card{padding:24px}.soft-card p{font-size:18px}.task-card{min-height:auto}.case-card{padding:14px}.compare{height:285px}.case-card h3{font-size:29px}.case-result{font-size:26px}.month-wrap{padding:14px}.month-text{padding:24px}.month-text h3{font-size:34px}.month-result{font-size:38px}.quiz-band{padding:30px;border-radius:30px}.products,.extras,.process,.tasks,.cases{gap:16px}.product,.extra-card,.approach-card,.step{padding:24px}.final{padding:0 0 70px}.final-inner{padding:40px 16px}.contact-card,.form-card{padding:24px}.btn{width:100%}.modal{padding:14px}.modal-box{padding:28px 20px;border-radius:26px}.quiz-step h2{font-size:42px}
-}
-@media(max-width:420px){.hero-card h1{font-size:42px}.compare{height:255px}.section{padding-left:12px;padding-right:12px}.hero{padding-left:12px;padding-right:12px}}
-</style>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/cases.css" />
 </head>
-
 <body>
-<div class="ambient"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
-
-<header class="header">
-  <nav class="nav">
-    <a href="#top" class="brand">
-      <strong>Интерьер под задачу</strong>
-      <span>Студия капитализации недвижимости</span>
+  <header class="site-header">
+    <a class="logo" href="#hero" aria-label="РА Рекламные решения">
+      <span class="logo-mark">RA</span>
+      <span class="logo-text">Рекламные решения</span>
     </a>
-    <div class="nav-links" id="navLinks">
+
+    <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="nav" aria-label="Основная навигация">
       <a href="#cases">Кейсы</a>
-      <a href="#approach">Подход</a>
-      <a href="#products">Решения</a>
-      <a href="#extras">Усиления</a>
-      <a href="#process">Процесс</a>
-      <a href="#request">Заявка</a>
-      <a href="admin.html">Admin</a>
+      <a href="#services">Услуги</a>
+      <a href="#process">Как работаем</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#faq">Вопросы</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+
+    <div class="header-actions">
+      <a class="header-admin" href="admin.html">Админка</a>
+      <a class="header-cta" href="#brief">Обсудить проект</a>
     </div>
-    <div class="nav-actions">
-      <button class="btn btn-outline menu-btn" type="button" onclick="toggleMenu()">Меню</button>
-      <a class="btn btn-light" href="#request">На сайт</a>
-    </div>
-  </nav>
-</header>
+  </header>
 
-<section class="hero" id="top">
-  <img class="hero-img" src="images/case1-after.jpg" alt="Интерьер, который увеличивает ценность недвижимости">
-  <div class="hero-card">
-    <div class="eyebrow">Интерьер под задачу</div>
-    <h1>За эту недвижимость готовы платить больше.</h1>
-    <p>Мы работаем с тем, что формирует её ценность.</p>
-    <div class="hero-actions">
-      <button class="btn btn-light" type="button" onclick="openQuiz()">Разобрать мой объект</button>
-      <a class="btn btn-ghost" href="#cases">Посмотреть кейсы</a>
-    </div>
-    <div class="hero-proof">
-      <div><b>+30%</b><span>к стоимости в кейсе месяца</span></div>
-      <div><b>7 дней</b><span>до продажи после подготовки</span></div>
-      <div><b>1 год</b><span>аренда оплачена заранее</span></div>
-    </div>
-  </div>
-</section>
-
-<section class="section reveal">
-  <div class="intro-grid">
-    <div>
-      <div class="eyebrow">Смысл</div>
-      <h2>Мы не делаем ремонт. Мы меняем восприятие стоимости.</h2>
-    </div>
-    <div class="soft-card">
-      <p>Перед продажей, сдачей или заселением недвижимость может выглядеть дешевле, чем есть на самом деле. Мы убираем визуальный шум, собираем интерьер и делаем так, чтобы ценность считывалась сразу.</p>
-    </div>
-  </div>
-</section>
-
-<section class="section reveal" id="tasks">
-  <div class="eyebrow">Задачи</div>
-  <h2>Под какую задачу мы готовим недвижимость</h2>
-  <p class="lead">Каждый объект мы собираем не “по стилю”, а под конкретное решение: продать, сдать, освежить или подготовить к показу.</p>
-  <div class="tasks" id="tasksList"></div>
-</section>
-
-<section class="section" id="cases">
-  <div class="eyebrow">Кейсы</div>
-  <h2>Реальные объекты, где интерьер изменил цену, скорость сделки или качество жизни.</h2>
-  <p class="lead">Мы не просто меняем картинку. Мы собираем объект так, чтобы покупатель, арендатор или владелец быстрее понял его ценность.</p>
-  <div class="cases" id="casesList"></div>
-</section>
-
-<section class="section-wide reveal">
-  <div class="section" style="padding-top:0;padding-bottom:34px">
-    <div class="eyebrow">Главный результат</div>
-    <h2>Кейс месяца</h2>
-  </div>
-  <div class="month-wrap" id="monthCase"></div>
-</section>
-
-<section class="section reveal" id="approach">
-  <div class="eyebrow">Подход</div>
-  <h2>Что мы делаем на самом деле</h2>
-  <p class="lead">Мы работаем не только с мебелью и декором. Мы работаем с тем, как человек воспринимает объект и насколько быстро готов за него платить.</p>
-  <div class="approach-grid">
-    <div class="approach-card"><b>Убираем то, что удешевляет</b><p>Визуальный шум, случайные детали и всё, что мешает увидеть настоящую ценность.</p></div>
-    <div class="approach-card"><b>Собираем сценарий жизни</b><p>Покупатель или арендатор должен не додумывать, а сразу понимать: здесь удобно.</p></div>
-    <div class="approach-card"><b>Усиливаем первое впечатление</b><p>Свет, фактуры, композиция и кадр работают на решение уже с первого взгляда.</p></div>
-    <div class="approach-card"><b>Готовим к сделке</b><p>Объект выглядит завершённым, уверенным и готовым к продаже, аренде или заселению.</p></div>
-  </div>
-</section>
-
-<section class="section reveal">
-  <div class="quiz-band">
-    <div>
-      <div class="eyebrow">Мини-разбор</div>
-      <h2>Покажем, где недвижимость теряет в цене</h2>
-      <p>2 минуты — и станет понятно, что мешает продать или сдать дороже.</p>
-    </div>
-    <div>
-      <div class="quiz-note">Мини-разбор помогает увидеть, что именно снижает воспринимаемую ценность: пустота, визуальный шум, устаревший образ или отсутствие сценария жизни.</div>
-      <button class="btn btn-light" style="margin-top:18px" type="button" onclick="openQuiz()">Пройти мини-разбор</button>
-    </div>
-  </div>
-</section>
-
-<section class="section reveal" id="products">
-  <div class="eyebrow">Решения</div>
-  <h2>Форматы работы</h2>
-  <p class="lead">Цена становится понятной, когда видно, что именно меняется: восприятие объекта, готовность к показу и скорость решения.</p>
-  <div class="products" id="packagesList"></div>
-</section>
-
-<section class="section reveal" id="extras">
-  <div class="eyebrow">Усиления</div>
-  <h2>Что чаще всего добавляют к решению</h2>
-  <p class="lead">Это не “допы ради допов”. Это точечные усилители первого впечатления, фото и показа — то, что помогает быстрее довести человека до решения.</p>
-  <div class="extras" id="extrasList"></div>
-</section>
-
-<section class="section reveal" id="process">
-  <div class="eyebrow">Процесс</div>
-  <h2>Как мы работаем</h2>
-  <p class="lead">Без бесконечного ремонта и хаоса. Сначала задача, потом решение, потом аккуратная сборка под сделку.</p>
-  <div class="process">
-    <div class="step"><b>Разбираем задачу</b><p>Смотрим, где сейчас теряется ценность объекта.</p></div>
-    <div class="step"><b>Предлагаем решение</b><p>Показываем, что именно нужно изменить и зачем.</p></div>
-    <div class="step"><b>Собираем интерьер</b><p>Быстро, без лишнего, под конкретный сценарий.</p></div>
-    <div class="step"><b>Готовим к сделке</b><p>Фото, показы и состояние “готово принять решение”.</p></div>
-  </div>
-</section>
-
-<section class="final" id="request">
-  <div class="final-inner">
-    <div class="final-grid">
-      <div class="contact-card">
-        <div class="eyebrow">Заявка</div>
-        <h2>Разберём ваш объект</h2>
-        <p>Покажем, где сейчас теряется ценность и что можно изменить, чтобы за недвижимость были готовы платить больше.</p>
-        <div class="contacts" id="contactsBox"></div>
-      </div>
-      <form class="form-card" id="leadForm" novalidate>
-        <div class="success" id="successMessage">Заявка отправлена. Мы свяжемся с вами.</div>
-        <div class="form-grid">
-          <input name="name" placeholder="Ваше имя" required>
-          <input name="phone" placeholder="Телефон / Telegram" required>
-          <select name="task" required>
-            <option value="">Какая задача?</option>
-            <option>Продать</option>
-            <option>Сдать</option>
-            <option>Обновить для жизни</option>
-            <option>Подготовить к показу</option>
-          </select>
-          <select name="package"><option value="">Интересующий формат</option></select>
-          <textarea name="message" placeholder="Коротко об объекте"></textarea>
-          <label class="policy-check"><input id="policyAgree" type="checkbox"><span>Я согласен(на) с <span class="link-inline" onclick="openTextModal('privacy')">политикой конфиденциальности</span> и <span class="link-inline" onclick="openTextModal('offer')">офертой</span>.</span></label>
-          <button class="btn btn-light" type="submit">Отправить заявку</button>
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero-content reveal">
+        <p class="eyebrow">Дизайн • производство • монтаж</p>
+        <h1>
+          Реклама, которая не просто видна —
+          <span>она приводит к результату</span>
+        </h1>
+        <p class="hero-subtitle">
+          Помогаем бизнесу стать заметнее, понятнее и увереннее продавать:
+          от вывески и полиграфии до полной системы привлечения клиентов.
+        </p>
+        <p class="hero-note">
+          Разберём задачу, уберём лишнее и предложим решение, которое работает именно в вашей ситуации.
+        </p>
+        <div class="hero-actions">
+          <a href="quiz.html" class="btn btn-primary">Разобрать мою задачу</a>
+          <a href="#cases" class="btn btn-secondary">Посмотреть кейсы</a>
         </div>
-      </form>
-    </div>
-  </div>
-</section>
-
-<div class="modal" id="quizModal">
-  <div class="modal-box">
-    <button class="close" type="button" onclick="closeModal('quizModal')">×</button>
-    <div class="quiz-step active" data-step="0">
-      <div class="eyebrow">Мини-разбор</div>
-      <h2>Какая задача у недвижимости?</h2>
-      <div class="quiz-options">
-        <button class="quiz-option" type="button" onclick="quizAnswer('task','Продать','Объект покупают быстрее, когда цена подтверждается визуально: светом, сценарием жизни и ощущением готовности.')">Продать</button>
-        <button class="quiz-option" type="button" onclick="quizAnswer('task','Сдать','Арендатор платит больше не за метры, а за понятный сценарий: где спать, работать, отдыхать и принимать гостей.')">Сдать</button>
-        <button class="quiz-option" type="button" onclick="quizAnswer('task','Для жизни','Даже без большого ремонта пространство можно собрать так, чтобы оно ощущалось готовым и вашим.')">Для жизни</button>
       </div>
-      <div class="quiz-hint" id="quizHint0"></div>
-    </div>
-    <div class="quiz-step" data-step="1">
-      <h2>В каком состоянии объект?</h2>
-      <div class="quiz-options">
-        <button class="quiz-option" type="button" onclick="quizAnswer('condition','Пустой','Пустой объект почти всегда воспринимается дешевле: человеку приходится самому додумывать жизнь внутри.')">Пустой</button>
-        <button class="quiz-option" type="button" onclick="quizAnswer('condition','Есть мебель, но выглядит обычно','Обычная мебель без сценария не добавляет ценности. Часто достаточно света, текстиля и правильной расстановки.')">Есть мебель, но выглядит обычно</button>
-        <button class="quiz-option" type="button" onclick="quizAnswer('condition','Хороший ремонт, но не продаёт ценность','Частая ситуация: ремонт есть, но он не объясняет, почему объект стоит дороже рынка.')">Хороший ремонт, но не продаёт ценность</button>
+    </section>
+
+    <section class="section pain-section reveal">
+      <div class="section-head">
+        <p class="eyebrow">С чем приходят</p>
+        <h2>Когда нужен не список услуг, а понятное решение</h2>
       </div>
-      <div class="quiz-hint" id="quizHint1"></div>
-    </div>
-    <div class="quiz-step" data-step="2">
-      <h2>Что беспокоит сильнее?</h2>
-      <div class="quiz-options">
-        <button class="quiz-option" type="button" onclick="quizAnswer('problem','Цена ниже ожиданий','Значит, нужно усилить восприятие: показать ценность так, чтобы её не приходилось объяснять словами.')">Цена ниже ожиданий</button>
-        <button class="quiz-option" type="button" onclick="quizAnswer('problem','Долго не продаётся / не сдаётся','Когда объект долго стоит, проблема часто не в цене, а в том, что фото и первый показ не собирают решение.')">Долго не продаётся / не сдаётся</button>
-        <button class="quiz-option" type="button" onclick="quizAnswer('problem','Нет ощущения готовности','Готовность — это не ремонт. Это ощущение, что можно заехать, показать, купить или сдать уже сейчас.')">Нет ощущения готовности</button>
+
+      <div class="pain-grid">
+        <article>Открываемся и нужно быстро оформить фасад</article>
+        <article>Клиенты проходят мимо и не замечают вход</article>
+        <article>Нужно обновить старую вывеску без лишнего бюджета</article>
+        <article>Нужна полиграфия к запуску, акции или мероприятию</article>
+        <article>Нужно оформить витрину, офис, стенд или навигацию</article>
+        <article>Хотим всё под ключ: дизайн → производство → монтаж</article>
       </div>
-      <div class="quiz-hint" id="quizHint2"></div>
+    </section>
+
+    <section class="section services-section reveal" id="services">
+      <div class="section-head">
+        <p class="eyebrow">Что делаем</p>
+        <h2>Собираем рекламные продукты в систему</h2>
+        <p>
+          Не наваливаем всё подряд. Подбираем носители под задачу:
+          привлечь, объяснить, оформить, продать или запустить бизнес.
+        </p>
+      </div>
+
+      <div class="service-grid">
+        <article>
+          <h3>Вывески и наружная реклама</h3>
+          <p>Вывески, световые короба, входные группы, билборды, штендеры, кронштейны.</p>
+        </article>
+        <article>
+          <h3>Полиграфия</h3>
+          <p>Визитки, листовки, буклеты, меню, каталоги, пластиковые карты, материалы для акций.</p>
+        </article>
+        <article>
+          <h3>Оформление пространства</h3>
+          <p>Витрины, стенды, таблички, интерьерная реклама, навигация, лайтбоксы.</p>
+        </article>
+        <article>
+          <h3>Бренд-материалы</h3>
+          <p>Упаковка, наклейки, баннеры, холсты, сувенирная продукция, брендирование транспорта.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section quiz-preview reveal" id="quiz">
+      <div>
+        <p class="eyebrow">Мини-диагностика</p>
+        <h2>Не знаете, что заказать?</h2>
+        <p>
+          Ответьте на несколько вопросов — подскажем, с какого решения логичнее начать.
+        </p>
+      </div>
+      <a class="btn btn-primary" href="quiz.html">Пройти квиз</a>
+    </section>
+
+    <section class="section cases-section" id="cases">
+      <div class="section-head reveal">
+        <p class="eyebrow">Кейсы</p>
+        <h2>Показываем не просто работы, а ход решения</h2>
+        <p>
+          В каждом кейсе есть “до/после” со шторкой и аккордеон:
+          задача, решение, усиление, оптимизация и результат.
+        </p>
+      </div>
+
+      <div id="cases-container" class="cases-container"></div>
+    </section>
+
+    <section class="section why-section reveal">
+      <div class="section-head">
+        <p class="eyebrow">Почему с нами проще</p>
+        <h2>Один подрядчик вместо пяти</h2>
+      </div>
+
+      <div class="why-grid">
+        <article>Поможем выбрать материал и формат</article>
+        <article>Сами произведём и смонтируем</article>
+        <article>Согласуем макет перед запуском</article>
+        <article>Подскажем, где можно сэкономить без потери вида</article>
+        <article>Работаем с разовыми и регулярными заказами</article>
+        <article>Собираем решение под задачу, а не “что подороже”</article>
+      </div>
+    </section>
+
+    <section class="section process-section reveal" id="process">
+      <div class="section-head">
+        <p class="eyebrow">Процесс</p>
+        <h2>Спокойно, понятно, по шагам</h2>
+      </div>
+
+      <div class="process-grid">
+        <article><span>01</span><h3>Разбираем задачу</h3></article>
+        <article><span>02</span><h3>Предлагаем формат</h3></article>
+        <article><span>03</span><h3>Считаем стоимость</h3></article>
+        <article><span>04</span><h3>Готовим макет</h3></article>
+        <article><span>05</span><h3>Производим</h3></article>
+        <article><span>06</span><h3>Доставляем / монтируем</h3></article>
+      </div>
+    </section>
+
+    <section class="section reviews-section reveal" id="reviews">
+      <div class="section-head">
+        <p class="eyebrow">Отзывы</p>
+        <h2>Клиенты ценят, когда понятно и без хаоса</h2>
+        <p>Пока без фото — для презентационной версии важнее показать широту задач и разные сферы бизнеса.</p>
+      </div>
+      <div id="reviews-container" class="reviews-grid"></div>
+    </section>
+
+    <section class="section faq-section reveal" id="faq">
+      <div class="section-head">
+        <p class="eyebrow">Вопросы</p>
+        <h2>Что обычно спрашивают перед стартом</h2>
+      </div>
+      <div id="faq-container" class="faq-list"></div>
+    </section>
+
+    <section class="section brief-section reveal" id="brief">
+      <div class="brief-card">
+        <div>
+          <p class="eyebrow">Быстрый расчёт</p>
+          <h2>Пришлите задачу — подскажем, с чего начать</h2>
+          <p>
+            Опишите, что нужно сделать. Можно приложить фото места, пример или файл макета.
+          </p>
+        </div>
+
+        <form class="brief-form" id="brief-form">
+          <input type="text" name="name" placeholder="Имя" required />
+          <input type="text" name="contact" placeholder="Телефон / Telegram" required />
+          <textarea name="task" placeholder="Что нужно сделать?" required></textarea>
+          <select name="layout">
+            <option value="">Есть ли готовый макет?</option>
+            <option>Да, есть</option>
+            <option>Нет, нужен дизайн</option>
+            <option>Есть идея, нужно доработать</option>
+          </select>
+          <input type="text" name="place" placeholder="Где будет размещаться реклама?" />
+          <input type="text" name="deadline" placeholder="Примерный срок" />
+
+          <label class="consent-check">
+            <input type="checkbox" required />
+            <span>
+              Я соглашаюсь с <a href="privacy.html">политикой конфиденциальности</a>
+              и <a href="consent.html">обработкой персональных данных</a>
+            </span>
+          </label>
+
+          <button type="submit" class="btn btn-primary">Получить расчёт</button>
+          <p class="form-note" id="form-note">
+            Демо-форма: заявка покажет уведомление, backend подключается отдельно.
+          </p>
+        </form>
+      </div>
+    </section>
+
+    <section class="final-section reveal" id="contacts">
+      <h2>Не знаете, с чего начать — пришлите задачу</h2>
+      <p>
+        Мы посмотрим, что нужно именно в вашем случае:
+        вывеска, печать, оформление точки или комплект материалов.
+      </p>
+      <a href="#brief" class="btn btn-primary">Обсудить проект</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© РА Рекламные решения</p>
+    <div class="footer-links">
+      <a href="admin.html">Админка</a>
+      <a href="quiz.html">Квиз</a>
+      <a href="offer.html">Оферта</a>
+      <a href="privacy.html">Политика конфиденциальности</a>
+      <a href="consent.html">Согласие на обработку данных</a>
     </div>
-    <div class="quiz-step" data-step="3">
-      <h2>Сейчас объект может терять ценность в восприятии</h2>
-      <p class="lead">Скорее всего, человеку нужно додумывать, почему за эту недвижимость стоит платить больше. Это можно исправить через интерьер, свет, сценарий жизни и подготовку к показу.</p>
-      <div style="margin-top:24px"><button class="btn btn-dark" type="button" onclick="quizToLead()">Получить решение под мой объект</button></div>
-    </div>
-  </div>
-</div>
+  </footer>
 
-<div class="modal" id="textModal">
-  <div class="modal-box">
-    <button class="close" type="button" onclick="closeModal('textModal')">×</button>
-    <div id="textModalContent"></div>
-  </div>
-</div>
-
-<script>
-const DB={contacts:'it_contacts_v1',leads:'it_leads_v1',cases:'it_cases_v1',packages:'it_packages_v1',extras:'it_extras_v1',tasks:'it_tasks_v1'};
-const defaults={
-  contacts:{email:'denta3231@yandex.ru',phone:'+7 999 000-00-00',telegram:'@tatishablin'},
-  tasks:[
-    {number:'01',title:'Продать',text:'Чтобы объект выглядел дороже и увереннее держал цену.'},
-    {number:'02',title:'Сдать',text:'Чтобы арендатор быстрее увидел сценарий жизни и принял решение.'},
-    {number:'03',title:'Освежить',text:'Без капитального ремонта, но с ощущением нового уровня.'},
-    {number:'04',title:'Показать',text:'Подготовить к фото, просмотрам и первому впечатлению.'}
-  ],
-  cases:[
-    {id:'case2',featured:false,title:'Студия под аренду в новом микрорайоне',before:'images/case2-before.jpg',after:'images/case2-after.jpg',was:'Пустая студия без полного набора мебели и понятного сценария жизни.',did:'Зонирование, второе спальное место, свет, текстиль и ощущение готового жилья.',result:'Сдана с первого показа +25% к цене'},
-    {id:'case4',featured:false,title:'3-комнатная квартира под продажу',before:'images/case4-before.jpg',after:'images/case4-after.jpg',was:'Хороший ремонт, но устаревшее восприятие. Объект долго продавался, цену снижать не хотели.',did:'Обновили мебель, свет, текстиль и декоративный слой. Собрали современный дорогой образ.',result:'Продана +15% от изначально высокой цены'},
-    {id:'case5',featured:false,title:'Квартира для жизни после покупки',before:'images/case5-before.jpg',after:'images/case5-after.jpg',was:'Молодая пара купила квартиру после переезда. Пространство было почти пустым.',did:'Косметика, мебель, текстиль, декор и понятные сценарии жизни.',result:'Готова к жизни сразу после покупки'},
-    {id:'case3',featured:true,title:'Студия с лофтом в тихом центре',before:'images/case3-before.jpg',after:'images/case3-after.jpg',was:'Студия с хорошим потенциалом, но без сильного образа. Лофт был, но не работал как вау-фактор.',did:'Усилили архитектуру второго уровня, добавили свет, фактуры, акценты и сценарий жизни.',result:'Продана за 7 дней +30%',extra:'После сделки клиент передал ещё 3 квартиры в этом же доме для подготовки к продаже.'}
-  ],
-  packages:[
-    {id:'fast',title:'Быстрое обновление',price:'от 90 000 ₽',featured:false,text:'Когда объект нормальный, но выглядит дешевле, чем есть.',items:['убираем визуальный шум','выравниваем свет и композицию','добавляем текстиль и базовый декор','собираем аккуратный сценарий пространства']},
-    {id:'sale',title:'Подготовка к продаже / аренде',price:'от 240 000 ₽',featured:true,text:'Когда важно увеличить цену и сократить срок сделки.',items:['переупаковка под покупателя или арендатора','зонирование и сценарии жизни','обновление мебели и ключевых точек','подготовка к фото, видео и показам']},
-    {id:'max',title:'Максимизация стоимости',price:'от 480 000 ₽',featured:false,text:'Когда у объекта есть потенциал выйти в другой ценовой сегмент.',items:['стратегия позиционирования объекта','работа с архитектурой и восприятием','премиальный подбор мебели, света и материалов','контроль реализации']}
-  ],
-  extras:[
-    {id:'show-kit',number:'01',featured:true,title:'Комплект “Подготовка к показу”',text:'Фотосессия + декор + свет. Всё, что влияет на первое впечатление, объявление и сам просмотр.',value:'Выгоднее, чем собирать по частям: объект получает цельный образ, а не набор случайных улучшений.',oldPrice:'55 000 ₽',price:'45 000 ₽',parts:[{title:'Фотосъёмка',text:'делает объект заметнее в выдаче и повышает доверие до просмотра'},{title:'Декор и текстиль',text:'создают ощущение “здесь хочется жить”, а не просто смотреть метры'},{title:'Свет и акценты',text:'подсвечивают сильные зоны и убирают ощущение случайности'}]}, 
-    {id:'visual-upgrade',number:'02',featured:true,title:'Комплект “Быстрый апгрейд восприятия”',text:'Точечно усиливаем зоны, которые чаще всего снижают впечатление: ванная, балкон, входная зона или пустой угол.',value:'Результат — объект выглядит собраннее и дороже без большого ремонта и долгих работ.',oldPrice:'70 000 ₽',price:'55 000 ₽',parts:[{title:'Ванная',text:'убирает ощущение “здесь придётся вкладываться сразу после покупки”'},{title:'Балкон / лоджия',text:'превращает забытые метры в понятный сценарий: хранение, кофе, рабочее место'},{title:'Входная зона',text:'создаёт правильное первое впечатление ещё до просмотра комнат'}]}, 
-    {id:'photo',number:'03',featured:false,title:'Профессиональная фотосессия',text:'Кадры под объявление, презентацию или показ собственнику.',value:'Больше доверия к объекту ещё до просмотра.',oldPrice:'',price:'от 25 000 ₽',parts:[{title:'Кадры для объявления',text:'помогают объекту выглядеть дороже среди похожих вариантов'},{title:'Акценты на ценности',text:'показываем не просто комнаты, а преимущества планировки и сценарии жизни'}]}, 
-    {id:'decor',number:'04',featured:false,title:'Набор декора для показа',text:'Текстиль, аромат, свет и детали, которые создают ощущение “здесь хочется жить”.',value:'Усиливает первое впечатление на показе.',oldPrice:'',price:'от 30 000 ₽',parts:[{title:'Текстиль',text:'добавляет мягкость, тепло и ощущение готового жилья'},{title:'Аромат и детали',text:'работают на эмоцию, которую человек запоминает после просмотра'}]}
-  ]
-};
-function getData(key){return JSON.parse(localStorage.getItem(DB[key])||JSON.stringify(defaults[key]||[]))}
-function setData(key,value){localStorage.setItem(DB[key],JSON.stringify(value))}
-function initData(){
-  Object.keys(defaults).forEach(key=>{if(!localStorage.getItem(DB[key]))setData(key,defaults[key])});
-  if(!localStorage.getItem(DB.leads))setData('leads',[]);
-  migrateData();
-}
-function migrateData(){
-  const contacts=getData('contacts');
-  if(!contacts.email || contacts.email.includes('drnta')) contacts.email='denta3231@yandex.ru';
-  setData('contacts',contacts);
-
-  const cases=getData('cases');
-  const month=cases.find(c=>c.featured);
-  if(month && month.extra && !month.extra.includes('подготовки к продаже')){
-    month.extra='После сделки клиент передал ещё 3 квартиры в этом же доме для подготовки к продаже.';
-    setData('cases',cases);
-  }
-
-  const extras=getData('extras');
-  if(extras.some(e=>!e.parts)) setData('extras',defaults.extras);
-}
-function compareHTML(item){return `<div class="compare" data-compare><img src="${item.after}" alt="${item.title} после"><div class="before"><img src="${item.before}" alt="${item.title} до"></div><span class="compare-label left">До</span><span class="compare-label right">После</span><div class="handle"></div></div>`}
-function renderTasks(){document.getElementById('tasksList').innerHTML=getData('tasks').map(t=>`<div class="task-card reveal"><span class="num">${t.number}</span><h3>${t.title}</h3><p>${t.text}</p></div>`).join('')}
-function renderCases(){const cases=getData('cases');document.getElementById('casesList').innerHTML=cases.filter(i=>!i.featured).map(i=>`<div class="case-card reveal">${compareHTML(i)}<h3>${i.title}</h3><div class="case-copy"><p><b>Было:</b> ${i.was}</p><p><b>Сделали:</b> ${i.did}</p></div><div class="case-result">${i.result}</div></div>`).join('');const m=cases.find(i=>i.featured)||cases[0];document.getElementById('monthCase').innerHTML=`<div class="month-grid">${compareHTML(m)}<div class="month-text"><span class="badge">Кейс месяца</span><h3>${m.title}</h3><p><b>Было:</b> ${m.was}</p><p><b>Сделали:</b> ${m.did}</p><div class="month-result">${m.result}</div><p class="month-extra">${m.extra||''}</p></div></div>`}
-function renderPackages(){const packs=getData('packages');document.getElementById('packagesList').innerHTML=packs.map((i,idx)=>`<div class="product ${i.featured?'featured':''} reveal"><span class="tag">Решение ${idx+1}</span><h3>${i.title}</h3><p>${i.text}</p><div class="price">${i.price}</div><ul>${i.items.map(x=>`<li>${x}</li>`).join('')}</ul><button class="btn ${i.featured?'btn-light':'btn-outline'}" type="button" onclick="selectPackage('${i.title.replace(/'/g,"\\'")}')">Выбрать решение</button></div>`).join('');document.querySelector('[name="package"]').innerHTML='<option value="">Интересующий формат</option>'+packs.map(i=>`<option>${i.title}</option>`).join('')}
-function renderExtras(){document.getElementById('extrasList').innerHTML=getData('extras').map(i=>`<div class="extra-card ${i.featured?'featured':''} reveal"><span class="num">${i.number}</span><h3>${i.title}</h3><p>${i.text}</p>${i.parts?`<div class="extra-parts">${i.parts.map(p=>`<div class="extra-part"><b>${p.title}</b><span>${p.text}</span></div>`).join('')}</div>`:''}<div class="extra-value">${i.value}</div><div class="extra-price">${i.oldPrice?`<s>${i.oldPrice}</s>`:''}${i.price}</div><button class="btn btn-outline" type="button" onclick="addExtraToLead('${i.title.replace(/'/g,"\'")}')">Добавить к заявке</button></div>`).join('')}
-function renderContacts(){const c=getData('contacts');document.getElementById('contactsBox').innerHTML=`<a href="https://t.me/${c.telegram.replace('@','')}" target="_blank">Telegram: ${c.telegram}</a><a href="tel:${c.phone.replace(/\s/g,'')}">${c.phone}</a><a href="mailto:${c.email}">${c.email}</a>`}
-function initCompare(){document.querySelectorAll('[data-compare]').forEach(el=>{const set=p=>el.style.setProperty('--pos',Math.min(Math.max(p,8),92)+'%');set(42);const update=x=>{const r=el.getBoundingClientRect();set(((x-r.left)/r.width)*100)};let dragging=false;el.addEventListener('pointerdown',e=>{dragging=true;el.setPointerCapture(e.pointerId);update(e.clientX)});el.addEventListener('pointermove',e=>{if(dragging||e.pointerType==='mouse')update(e.clientX)});el.addEventListener('pointerup',()=>dragging=false);el.addEventListener('pointercancel',()=>dragging=false)})}
-function toggleMenu(){document.getElementById('navLinks').classList.toggle('open')}
-document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')))
-function openModal(id){document.getElementById(id).classList.add('open');document.body.classList.add('modal-open')}
-function closeModal(id){document.getElementById(id).classList.remove('open');document.body.classList.remove('modal-open')}
-document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal(m.id)}))
-let quizData={},quizStep=0;
-function openQuiz(){quizData={};quizStep=0;document.querySelectorAll('.quiz-hint').forEach(h=>{h.textContent='';h.classList.remove('show')});showQuizStep();openModal('quizModal')}
-function quizAnswer(key,value,hint){
-  quizData[key]=value;
-  const hintEl=document.getElementById('quizHint'+quizStep);
-  if(hintEl){
-    hintEl.innerHTML=`<b>Что это значит для цены:</b><br>${hint}<br><button class="btn btn-dark" style="margin-top:14px" type="button" onclick="nextQuizStep()">Дальше</button>`;
-    hintEl.classList.add('show');
-  }
-}
-function nextQuizStep(){quizStep++;showQuizStep()}
-function showQuizStep(){document.querySelectorAll('.quiz-step').forEach((s,i)=>s.classList.toggle('active',i===quizStep))}
-function quizToLead(){
-  closeModal('quizModal');
-  document.getElementById('request').scrollIntoView({behavior:'smooth'});
-  const f=document.getElementById('leadForm');
-  f.classList.add('quiz-mode');
-  const taskMap={'Для жизни':'Обновить для жизни','Продать':'Продать','Сдать':'Сдать'};
-  f.elements.task.value=taskMap[quizData.task]||quizData.task||'Подготовить к показу';
-  f.elements.package.value='';
-  f.elements.message.value=`Ответы квиза:
-Задача: ${quizData.task||'-'}
-Состояние: ${quizData.condition||'-'}
-Проблема: ${quizData.problem||'-'}`;
-}
-function selectPackage(name){document.getElementById('request').scrollIntoView({behavior:'smooth'});document.getElementById('leadForm').classList.remove('quiz-mode');document.querySelector('[name="package"]').value=name}
-function addExtraToLead(name){document.getElementById('request').scrollIntoView({behavior:'smooth'});document.getElementById('leadForm').classList.remove('quiz-mode');const msg=document.querySelector('[name="message"]');const cur=msg.value.trim();const line=`Доп. усиление: ${name}`;if(!cur.includes(line))msg.value=cur?`${cur}
-${line}`:line}
-function openTextModal(type){document.getElementById('textModalContent').innerHTML=type==='privacy'?`<h2>Политика конфиденциальности</h2><p class="lead">Оставляя заявку на сайте, пользователь соглашается на обработку персональных данных: имени, телефона, контакта Telegram и информации об объекте. Данные используются только для связи и подготовки предложения. Данные не передаются третьим лицам.</p>`:`<h2>Публичная оферта</h2><p class="lead">Информация на сайте носит ознакомительный характер и не является публичной офертой в полном юридическом смысле. Стоимость услуг указана “от” и зависит от площади, состояния объекта, сроков, комплектации и объёма работ. Итоговые условия фиксируются после консультации.</p>`;openModal('textModal')}
-document.getElementById('leadForm').addEventListener('submit',e=>{
-  e.preventDefault();
-  const form=e.target;
-  const success=document.getElementById('successMessage');
-  success.style.display='none';
-
-  if(!form.elements.name.value.trim()){alert('Введите ваше имя.');return;}
-  if(!form.elements.phone.value.trim()){alert('Введите телефон или Telegram.');return;}
-  if(!form.elements.task.value.trim()){alert('Выберите задачу по объекту.');return;}
-  if(!document.getElementById('policyAgree').checked){alert('Поставьте галочку согласия с политикой конфиденциальности и офертой.');return;}
-
-  const data=Object.fromEntries(new FormData(form).entries());
-  const leads=getData('leads');
-  leads.unshift({id:Date.now(),date:new Date().toLocaleString('ru-RU'),status:'Новая',...data});
-  setData('leads',leads);
-  success.innerHTML='Заявка отправлена. Мы свяжемся с вами и подскажем, где объект может терять ценность.';
-  success.style.display='block';
-  form.reset();
-  form.classList.remove('quiz-mode');
-  setTimeout(()=>success.style.display='none',7000);
-})
-function initReveal(){const obs=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');obs.unobserve(entry.target)}})},{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>obs.observe(el))}
-function init(){initData();renderTasks();renderCases();renderPackages();renderExtras();renderContacts();initCompare();initReveal()}
-init();
-</script>
+  <script type="module" src="js/cases.js"></script>
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
